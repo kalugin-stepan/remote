@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Robot</title>
+    <script src="/node_modules/mqtt/dist/mqtt.min.js"></script>
+    <script src="/public/joy.js"></script>
+    <script defer src="/public/index.js"></script>
+    <style>
+        #joy {
+            margin: auto;
+        }
+        #joy > div > div {
+            background-image: url('public/imgs/bg.jpg') !important;
+            background-size: cover !important;
+        }
+        #robot_id {
+            font-size: 36px;
+            margin: auto;
+            display: block;
+        }
+        .robot_id_box {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="joy"></div>
+    <div class="robot_id_box">
+        <input id="robot_id" placeholder="Robot ID">
+    </div>
+</body>
+</html>

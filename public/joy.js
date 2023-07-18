@@ -11,8 +11,9 @@ class Joy {
         this.parent.appendChild(this.container)
         this.joy = document.createElement('div')
         this.joy.style.borderRadius = '50%'
-        this.joy.style.background = 'green'
+        // this.joy.style.background = 'green'
         this.joy.style.position = 'relative'
+        this.joy.style.touchAction = 'none'
         this.joy.style.top = `${this.container.offsetHeight * 0.05}px`
         this.joy.style.left = `${this.container.offsetWidth * 0.05}px`
         this.joy.style.width =  `${this.container.offsetWidth * 0.9}px`
@@ -47,6 +48,8 @@ class Joy {
         this.joy.style.top = `${y - this.container.offsetHeight * 0.45}px`
         this.pos[0] = Math.round(200 * x / this.container.offsetWidth - 100)
         this.pos[1] = Math.round(-200 * y / this.container.offsetHeight + 100)
+        if (Math.abs(this.pos[0]) > 100) this.pos[0] = 100 * Math.sign(this.pos[0])
+        if (Math.abs(this.pos[1]) > 100) this.pos[1] = 100 * Math.sign(this.pos[1])
     }
     on_mouse_down(e) {
         this.clicked = true
@@ -84,7 +87,6 @@ class Joy {
         return this.pos
     }
     resize() {
-        console.log(this.parent.offsetHeight)
         this.container.style.height = `${this.parent.offsetHeight}px`
         this.joy.style.width = `${this.container.offsetWidth * 0.9}px`
         this.joy.style.height = `${this.container.offsetHeight * 0.9}px`

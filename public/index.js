@@ -1,5 +1,8 @@
-const client = mqtt.connect('ws://10.23.202.198:9001/mqtt')
+// const client = mqtt.connect('ws://192.168.177.67:9001/mqtt')
+const client = mqtt.connect('ws://10.23.202.66:9001/mqtt')
 // const client = mqtt.connect('ws://broker.emqx.io:8083/mqtt')
+
+const play = new Audio('/public/sound/play.mp3')
 
 let robot_id = localStorage.getItem('robot_id')
 
@@ -10,6 +13,7 @@ if (robot_id !== null) robot_id_input.value = robot_id
 robot_id_input.onchange = e => {
     robot_id = robot_id_input.value
     localStorage.setItem('robot_id', robot_id)
+    play.play()
 }
 
 const joy = new Joy('#joy')
@@ -58,7 +62,6 @@ setInterval(() => {
         last_x = pos[0]
         last_y = pos[1] 
         client.publish(robot_id, new Uint8Array(pos.buffer))
-        console.log(pos)
         return
     }
     btn_pos[0] = 0
@@ -76,12 +79,11 @@ setInterval(() => {
         btn_pos[0] += 100
     }
     if (btn_pos[0] !== last_btn_x || btn_pos[1] !== last_btn_y) {
-        client.publish(robot_id, btn_pos)
+        client.publish(robot_id, new Uint8Array(btn_pos.buffer))
         last_btn_x = btn_pos[0]
         last_btn_y = btn_pos[1]
-        console.log(btn_pos)
     }
-}, 10)
+}, 30)
 
 function update_size() {
     if (window.innerWidth > window.innerHeight) {
@@ -100,3 +102,23 @@ addEventListener('resize', e => {
     update_size()
     joy.resize()
 })
+
+const select_bg = document.getElementById('select_bg')
+
+let selected_bg = localStorage.getItem('bg')
+
+if (selected_bg === null) {
+    selected_bg = 'bg1.jpg'
+}
+else {
+    select_bg.value = selected_bg
+}
+
+joy.joy.style.backgroundImage = `url('/public/imgs/${selected_bg}')`
+
+select_bg.onchange = e => {
+    selected_bg = select_bg.value
+    localStorage.setItem('bg', selected_bg)
+    joy.joy.style.backgroundImage = `url('/public/imgs/${selected_bg}')`
+    if (select_bg.value === 'bg7.jpg') play.play()
+}

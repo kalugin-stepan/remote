@@ -11,7 +11,7 @@
             margin: auto;
         }
         #joy > div > div {
-            background-image: url('public/imgs/bg.jpg') !important;
+            background-image: url('public/imgs/bg1.jpg');
             background-size: cover !important;
         }
         #robot_id {
@@ -25,7 +25,18 @@
     </style>
 </head>
 <body>
-    <div id="joy"></div>
+    <div>
+        <div id="joy"></div>
+        <select id="select_bg">
+            <option selected>bg1.jpg</option>
+            <option>bg2.jpg</option>
+            <option>bg3.jpg</option>
+            <option>bg4.jpg</option>
+            <option>bg5.jpg</option>
+            <option>bg6.jpg</option>
+            <option>bg7.jpg</option>
+        </select>
+    </div>
     <div class="robot_id_box">
         <input id="robot_id" placeholder="Robot ID">
     </div>
